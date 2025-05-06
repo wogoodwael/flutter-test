@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "flutter-test-28e20"
-  }
+    "default": "flutter-test-28e20",
+    "publish": "flutter-test-28e20"
+  },
+  "targets": {},
+  "etags": {}
 }
