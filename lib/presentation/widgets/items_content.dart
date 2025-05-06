@@ -14,40 +14,40 @@ class ItemsContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Header
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Items',
-                style:interRegular32
-              ),
-              Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.2),
-                      shape: BoxShape.circle,
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Items', style: interRegular32),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.2),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.asset(filterIcon),
                     ),
-                    child:Image.asset(filterIcon)
-                  ),
-                  SizedBox(width: 16),
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: Icon(Icons.add),
-                    label: Text('Add a New Item'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFFB84C),
-                      foregroundColor: Colors.black,
-                      padding: EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                    SizedBox(width: 16),
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Icon(Icons.add),
+                      label: Text('Add a New Item'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFFFB84C),
+                        foregroundColor: Colors.black,
+                        padding: EdgeInsets.all(20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
 
           SizedBox(height: 24),

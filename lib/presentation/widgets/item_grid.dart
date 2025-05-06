@@ -112,8 +112,12 @@ class FirebaseItemGrid extends StatelessWidget {
   }
 
   double _getChildAspectRatio(double width) {
-    if (width < 500) {
-      return 1.6;
+    if (width < 300) {
+      return .6;
+    } else if (width < 400) {
+      return .9;
+    } else if (width < 500) {
+      return 1.4;
     } else if (width < 600) {
       return 1.7;
     } else if (width < 700) {
@@ -142,11 +146,11 @@ class ItemCard extends StatelessWidget {
   final bool notMoreThanTwo;
 
   const ItemCard({
-    
     super.key,
     required this.itemFireBase,
     this.isMobile = false,
-    required this.notMoreThanTwo, required this.index,
+    required this.notMoreThanTwo,
+    required this.index,
   });
 
   @override
@@ -225,7 +229,7 @@ class ItemCard extends StatelessWidget {
           ),
           // Content section
           Container(
-            height: .15 * MediaQuery.sizeOf(context).height,
+            width: double.infinity,
             padding: const EdgeInsets.all(12),
             decoration: const BoxDecoration(
               color: Color(0xFF1E1E1E),
@@ -235,6 +239,7 @@ class ItemCard extends StatelessWidget {
               ),
             ),
             child: Column(
+              spacing: 10,
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -249,34 +254,38 @@ class ItemCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 // Date info
-                Row(
-                  children: [
-                    Icon(
-                      Icons.calendar_today_outlined,
-                      size: isMobile ? 14 : 16,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(width: 4),
-                    itemList[index]['nights'] != null
-                        ? Text(
-                          '${itemList[index]['nights']} Nights (${itemFireBase['date'] != null 
-                              ? DateFormat('MMM d, yyyy - h:mm a').format((itemFireBase['date'] as Timestamp).toDate())
-                              : 'No dates'})',
-                          style: TextStyle(
-                            fontSize: isMobile ? 10 : 12,
-                            color: Colors.grey,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Icon(
+                        Icons.calendar_today_outlined,
+                        size: isMobile ? 14 : 16,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(width: 4),
+                      itemList[index]['nights'] != null
+                          ? Text(
+                            '${itemList[index]['nights']} Nights (${itemFireBase['date'] != null ? DateFormat('MMM d, yyyy - h:mm a').format((itemFireBase['date'] as Timestamp).toDate()) : 'No dates'})',
+                            style: TextStyle(
+                              fontSize: isMobile ? 10 : 12,
+                              color: Colors.grey,
+                            ),
+                          )
+                          : Text(
+                            itemFireBase['date'] != null
+                                ? DateFormat(
+                                  'MMM d, yyyy - h:mm a',
+                                ).format(DateTime.parse(itemFireBase['date']))
+                                : 'No dates',
+                            style: TextStyle(
+                              fontSize: isMobile ? 10 : 12,
+                              color: Colors.grey,
+                            ),
                           ),
-                        )
-                        : Text(
-                          itemFireBase['date'] != null 
-                              ? DateFormat('MMM d, yyyy - h:mm a').format(DateTime.parse(itemFireBase['date']))
-                              : 'No dates',
-                          style: TextStyle(
-                            fontSize: isMobile ? 10 : 12,
-                            color: Colors.grey,
-                          ),
-                        ),
-                  ],
+                    ],
+                  ),
                 ),
                 // User avatars and tasks
                 Row(
@@ -334,7 +343,9 @@ class ItemCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    //
                     // Tasks count
+                    Spacer(),
                     Text(
                       '${itemFireBase['tasks'] ?? 0} unfinished tasks',
                       style: TextStyle(
